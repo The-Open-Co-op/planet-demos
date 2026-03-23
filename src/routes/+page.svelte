@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '$lib/components/ui/card';
 	import { ArrowRight, BookOpen, Users } from '@lucide/svelte';
 </script>
 
@@ -11,9 +17,9 @@
 <div class="mx-auto max-w-3xl space-y-10 text-center">
 	<header class="space-y-4">
 		<h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Welcome to PLANET demos</h1>
-		<p class="text-muted-foreground text-sm leading-relaxed sm:text-base">
-			These are frontend-only mockups with static data — no backend or real authentication. Pick a demo
-			to explore the flows described in the user stories.
+		<p class="text-sm leading-relaxed text-muted-foreground sm:text-base">
+			These are frontend-only mockups with static data — no backend or real authentication. Pick a
+			demo to explore the flows described in the user stories.
 		</p>
 	</header>
 
@@ -21,7 +27,7 @@
 		<Card class="flex flex-col">
 			<CardHeader>
 				<CardTitle class="flex items-center gap-2 text-lg">
-					<Users class="text-primary size-5" />
+					<Users class="size-5 text-primary" />
 					Introducer
 				</CardTitle>
 				<CardDescription>
@@ -40,7 +46,7 @@
 		<Card class="flex flex-col">
 			<CardHeader>
 				<CardTitle class="flex items-center gap-2 text-lg">
-					<BookOpen class="text-primary size-5" />
+					<BookOpen class="size-5 text-primary" />
 					Blog (FPP)
 				</CardTitle>
 				<CardDescription>

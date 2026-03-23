@@ -83,20 +83,24 @@
 </svelte:head>
 
 {#if !intro || !chat}
-	<p class="text-muted-foreground text-sm">This chat is not available. Accept an introduction first.</p>
+	<p class="text-sm text-muted-foreground">
+		This chat is not available. Accept an introduction first.
+	</p>
 {:else}
 	<div class="flex flex-col gap-6 lg:flex-row">
-		<section class="lg:w-2/3 space-y-4">
+		<section class="space-y-4 lg:w-2/3">
 			<header>
 				<h1 class="text-xl font-semibold tracking-tight">Introduction chat</h1>
-				<p class="text-muted-foreground text-sm">
+				<p class="text-sm text-muted-foreground">
 					The introducer is a full participant until they bow out (US-06, US-08).
 				</p>
 			</header>
 
 			{#if showBowOut}
 				<Card class="border-primary/50 bg-primary/5">
-					<CardContent class="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
+					<CardContent
+						class="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between"
+					>
 						<p class="text-sm">
 							Your intro was accepted by all parties — <strong>bow out?</strong>
 						</p>
@@ -108,13 +112,13 @@
 				</Card>
 			{/if}
 
-			<ScrollArea class="border-border h-[min(50vh,420px)] rounded-xl border">
+			<ScrollArea class="h-[min(50vh,420px)] rounded-xl border border-border">
 				<ul class="flex flex-col gap-2 p-3">
 					{#each messages as m}
 						<li
 							class={m.kind === 'system'
-								? 'text-muted-foreground text-center text-xs'
-								: 'bg-muted/50 rounded-lg px-3 py-2'}
+								? 'text-center text-xs text-muted-foreground'
+								: 'rounded-lg bg-muted/50 px-3 py-2'}
 						>
 							{#if m.kind === 'system'}
 								{m.body}
@@ -143,16 +147,14 @@
 					</Button>
 				</form>
 			{:else}
-				<p class="text-muted-foreground text-sm">
+				<p class="text-sm text-muted-foreground">
 					You have left this chat. Rejoin only if someone invites you again.
 				</p>
 			{/if}
 		</section>
 
-		<aside class="lg:w-1/3 space-y-4">
-			<h2 class="flex items-center gap-2 font-medium">
-				Participants
-			</h2>
+		<aside class="space-y-4 lg:w-1/3">
+			<h2 class="flex items-center gap-2 font-medium">Participants</h2>
 			<div class="flex flex-col gap-3">
 				{#each participants as p}
 					<ProfileCard user={p} />
@@ -164,7 +166,7 @@
 			{#if canMarkValuable}
 				<div class="space-y-2">
 					<p class="text-sm font-medium">Value</p>
-					<p class="text-muted-foreground text-xs">
+					<p class="text-xs text-muted-foreground">
 						Mark once if this introduction was genuinely valuable (US-09).
 					</p>
 					<Button variant="secondary" onclick={onValuable}>Mark as valuable</Button>

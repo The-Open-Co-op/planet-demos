@@ -81,9 +81,9 @@
 </svelte:head>
 
 {#if !post}
-	<p class="text-muted-foreground text-sm">Post not found.</p>
+	<p class="text-sm text-muted-foreground">Post not found.</p>
 {:else if !canView}
-	<p class="text-muted-foreground text-sm">
+	<p class="text-sm text-muted-foreground">
 		This post is not available. {!blogView.asWebVisitor
 			? 'Try another visibility.'
 			: 'Sign in as a PLANET member to read members-only posts (US-36).'}
@@ -105,17 +105,17 @@
 
 		<header class="space-y-3">
 			<div class="flex flex-wrap items-center gap-2">
-				<time class="text-muted-foreground text-sm">{formatDate(post.publishedAt)}</time>
+				<time class="text-sm text-muted-foreground">{formatDate(post.publishedAt)}</time>
 				{#if post.editedAt}
 					<Badge variant="outline" class="text-xs">Edited {formatDate(post.editedAt)}</Badge>
 				{/if}
 				{#each post.hashtags as t}
-					<a class="text-primary text-sm font-medium" href="/blog">#{t}</a>
+					<a class="text-sm font-medium text-primary" href="/blog">#{t}</a>
 				{/each}
 			</div>
 			<h1 class="text-3xl font-semibold tracking-tight md:text-4xl">{post.title}</h1>
 			{#if post.subtitle}
-				<p class="text-muted-foreground text-lg">{post.subtitle}</p>
+				<p class="text-lg text-muted-foreground">{post.subtitle}</p>
 			{/if}
 			<div class="flex flex-wrap items-center gap-3">
 				<div class="flex items-center gap-2">
@@ -131,7 +131,7 @@
 							type="button"
 							class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'gap-1')}
 						>
-							<BadgeCheck class="text-primary size-4" />
+							<BadgeCheck class="size-4 text-primary" />
 							Verified
 						</Dialog.Trigger>
 						<Dialog.Content class="sm:max-w-md">
@@ -141,7 +141,7 @@
 									US-27 — US-29. Independent verification would use your PLANET tooling.
 								</Dialog.Description>
 							</Dialog.Header>
-							<dl class="font-mono space-y-2 text-xs">
+							<dl class="space-y-2 font-mono text-xs">
 								<div>
 									<dt class="text-muted-foreground">DID</dt>
 									<dd>did:planet:{settings.slug}</dd>
@@ -165,12 +165,12 @@
 		{#if post.inlineImageUrl}
 			<figure class="space-y-2">
 				<div
-					class="border-border bg-muted/20 flex aspect-video items-center justify-center overflow-hidden rounded-xl border"
+					class="flex aspect-video items-center justify-center overflow-hidden rounded-xl border border-border bg-muted/20"
 				>
 					<img src={post.inlineImageUrl} alt="" class="max-h-[420px] object-contain" />
 				</div>
 				{#if post.inlineImageCaption}
-					<figcaption class="text-muted-foreground flex items-center gap-1 text-sm">
+					<figcaption class="flex items-center gap-1 text-sm text-muted-foreground">
 						<ImageIcon class="size-3.5 shrink-0" />
 						{post.inlineImageCaption}
 					</figcaption>
@@ -184,38 +184,50 @@
 			<h2 id="comments-heading" class="text-lg font-semibold">
 				Comments
 				{#if !settings.commentsGloballyEnabled || !post.commentsEnabled}
-					<span class="text-muted-foreground text-sm font-normal">— disabled</span>
+					<span class="text-sm font-normal text-muted-foreground">— disabled</span>
 				{/if}
 			</h2>
 			{#if blogView.asWebVisitor}
-				<p class="text-muted-foreground text-sm">PLANET members can comment (US-48, US-49).</p>
+				<p class="text-sm text-muted-foreground">PLANET members can comment (US-48, US-49).</p>
 			{:else if !settings.commentsGloballyEnabled || !post.commentsEnabled}
-				<p class="text-muted-foreground text-sm">Comments are turned off for this post or blog (US-53).</p>
+				<p class="text-sm text-muted-foreground">
+					Comments are turned off for this post or blog (US-53).
+				</p>
 			{:else}
 				<ul class="space-y-4">
 					{#each topLevel(pc) as c}
-						<li class="border-border rounded-lg border p-3">
+						<li class="rounded-lg border border-border p-3">
 							<div class="flex items-start justify-between gap-2">
 								<div>
 									<p class="text-sm font-medium">
 										{userById(c.authorId)?.displayName ?? 'Member'}
 									</p>
-									<p class="text-muted-foreground text-xs">
+									<p class="text-xs text-muted-foreground">
 										{formatDate(c.createdAt)}
 									</p>
 								</div>
 								{#if isAuthor()}
-									<Button variant="ghost" size="sm" class="h-7 text-xs" onclick={() => deleteComment(c.id)}>
+									<Button
+										variant="ghost"
+										size="sm"
+										class="h-7 text-xs"
+										onclick={() => deleteComment(c.id)}
+									>
 										Delete
 									</Button>
 								{/if}
 							</div>
 							<p class="mt-2 text-sm whitespace-pre-wrap">{c.body}</p>
-							<Button variant="link" size="sm" class="mt-1 h-7 px-0 text-xs" onclick={() => startReply(c.id)}>
+							<Button
+								variant="link"
+								size="sm"
+								class="mt-1 h-7 px-0 text-xs"
+								onclick={() => startReply(c.id)}
+							>
 								Reply
 							</Button>
 							{#if replies(pc, c.id).length > 0}
-								<ul class="border-border mt-3 space-y-2 border-l-2 pl-4">
+								<ul class="mt-3 space-y-2 border-l-2 border-border pl-4">
 									{#each replies(pc, c.id) as r}
 										<li>
 											<p class="text-xs font-medium">
@@ -244,12 +256,17 @@
 					<CardContent class="pt-6">
 						<form class="space-y-3" onsubmit={onComment}>
 							{#if replyTo}
-								<p class="text-muted-foreground text-xs">
-									Replying to comment — <button type="button" class="text-primary underline" onclick={() => (replyTo = undefined)}>cancel</button>
+								<p class="text-xs text-muted-foreground">
+									Replying to comment — <button
+										type="button"
+										class="text-primary underline"
+										onclick={() => (replyTo = undefined)}>cancel</button
+									>
 								</p>
 							{/if}
 							<Textarea
-								placeholder="Write a comment as {userById(session.currentUserId)?.displayName ?? 'you'}…"
+								placeholder="Write a comment as {userById(session.currentUserId)?.displayName ??
+									'you'}…"
 								bind:value={commentBody}
 								rows={3}
 							/>

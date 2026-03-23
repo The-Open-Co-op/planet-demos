@@ -3,7 +3,13 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
-	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '$lib/components/ui/card';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { Textarea } from '$lib/components/ui/textarea';
@@ -30,14 +36,18 @@
 	const list = $derived.by((): BlogPost[] => visiblePostsForReader());
 
 	function excerpt(p: BlogPost): string {
-		const plain = p.bodyMd.replace(/[#>*_\-\d.]/g, ' ').replace(/\s+/g, ' ').trim();
+		const plain = p.bodyMd
+			.replace(/[#>*_\-\d.]/g, ' ')
+			.replace(/\s+/g, ' ')
+			.trim();
 		return plain.length > 160 ? `${plain.slice(0, 157)}…` : plain;
 	}
 
 	function onFollowAll() {
 		if (blogView.asWebVisitor) {
 			toast('Join PLANET', {
-				description: 'Following requires a PLANET account — you would be invited to sign up here (US-40).'
+				description:
+					'Following requires a PLANET account — you would be invited to sign up here (US-40).'
 			});
 			return;
 		}
@@ -47,11 +57,15 @@
 
 	function onFollowTag(tag: string) {
 		if (blogView.asWebVisitor) {
-			toast('Join PLANET', { description: `After joining, you would follow #${tag} automatically (US-41).` });
+			toast('Join PLANET', {
+				description: `After joining, you would follow #${tag} automatically (US-41).`
+			});
 			return;
 		}
 		followHashtag(tag);
-		toast(`Following #${tag}`, { description: 'Stored as follower DID → author + hashtag (US-37).' });
+		toast(`Following #${tag}`, {
+			description: 'Stored as follower DID → author + hashtag (US-37).'
+		});
 	}
 
 	function onContact(e: Event) {
@@ -59,7 +73,9 @@
 		if (!settings.contactFormEnabled) return;
 		const ok = submitContact(contactName, contactEmail, contactMessage, honeypot);
 		if (ok) {
-			toast('Message sent', { description: 'Delivered to the author email in a real deployment (US-45).' });
+			toast('Message sent', {
+				description: 'Delivered to the author email in a real deployment (US-45).'
+			});
 			contactName = '';
 			contactEmail = '';
 			contactMessage = '';
@@ -75,28 +91,30 @@
 
 <div class="space-y-10">
 	<section
-		class="border-border relative overflow-hidden rounded-2xl border bg-cover bg-center"
+		class="relative overflow-hidden rounded-2xl border border-border bg-cover bg-center"
 		style="background-image: linear-gradient(to top, rgba(0,0,0,0.65), transparent), url({settings.bannerUrl})"
 	>
-		<div class="text-primary-foreground flex min-h-[200px] flex-col justify-end gap-2 p-6 md:min-h-[260px] md:p-10">
+		<div
+			class="flex min-h-[200px] flex-col justify-end gap-2 p-6 text-primary-foreground md:min-h-[260px] md:p-10"
+		>
 			<div class="flex items-center gap-3">
-				<Avatar.Root class="border-background size-14 border-2 md:size-16">
+				<Avatar.Root class="size-14 border-2 border-background md:size-16">
 					<Avatar.Image src={settings.logoUrl} alt="" />
 					<Avatar.Fallback>AR</Avatar.Fallback>
 				</Avatar.Root>
 				<div>
 					<p class="text-2xl font-semibold tracking-tight md:text-3xl">{settings.title}</p>
-					<p class="text-primary-foreground/90 max-w-xl text-sm">{settings.tagline}</p>
+					<p class="max-w-xl text-sm text-primary-foreground/90">{settings.tagline}</p>
 				</div>
 			</div>
-			<p class="text-primary-foreground/80 font-mono text-xs">
+			<p class="font-mono text-xs text-primary-foreground/80">
 				planetnetwork.app/blog/{settings.slug}
 			</p>
 		</div>
 	</section>
 
 	<section class="grid gap-8 lg:grid-cols-3">
-		<div class="lg:col-span-2 space-y-6">
+		<div class="space-y-6 lg:col-span-2">
 			<h2 class="text-lg font-semibold">Latest posts</h2>
 			<ul class="flex flex-col gap-6">
 				{#each list as post}
@@ -115,19 +133,19 @@
 							{/if}
 							<CardHeader>
 								<CardTitle>
-									<a href="/blog/post/{post.id}" class="hover:text-primary transition-colors">
+									<a href="/blog/post/{post.id}" class="transition-colors hover:text-primary">
 										{post.title}
 									</a>
 								</CardTitle>
 								{#if post.subtitle}
 									<CardDescription>{post.subtitle}</CardDescription>
 								{/if}
-								<p class="text-muted-foreground text-sm">{excerpt(post)}</p>
+								<p class="text-sm text-muted-foreground">{excerpt(post)}</p>
 								<div class="flex flex-wrap gap-2 pt-2">
 									{#each post.hashtags as t}
 										<button
 											type="button"
-											class="text-primary text-xs font-medium hover:underline"
+											class="text-xs font-medium text-primary hover:underline"
 											onclick={() => onFollowTag(t)}
 										>
 											#{t}
@@ -140,7 +158,7 @@
 				{/each}
 			</ul>
 			{#if list.length === 0}
-				<p class="text-muted-foreground text-sm">No public posts to show in this mode.</p>
+				<p class="text-sm text-muted-foreground">No public posts to show in this mode.</p>
 			{/if}
 		</div>
 
@@ -154,12 +172,15 @@
 				</CardHeader>
 				<CardContent class="space-y-3 text-sm">
 					<p class="font-medium">{settings.authorDisplayName}</p>
-					<p class="text-muted-foreground leading-relaxed">{settings.authorBio}</p>
+					<p class="leading-relaxed text-muted-foreground">{settings.authorBio}</p>
 					<ul class="space-y-1">
 						{#each settings.authorLinks as link}
 							<li>
-								<a class="text-primary text-sm hover:underline" href={link.url} target="_blank" rel="noreferrer"
-									>{link.label}</a
+								<a
+									class="text-sm text-primary hover:underline"
+									href={link.url}
+									target="_blank"
+									rel="noreferrer">{link.label}</a
 								>
 							</li>
 						{/each}
@@ -173,21 +194,30 @@
 					<CardDescription>US-37 — US-41. Feed consumption is mocked.</CardDescription>
 				</CardHeader>
 				<CardContent class="flex flex-col gap-2">
-					<Button variant="secondary" class="w-full" onclick={onFollowAll}>Follow entire blog</Button>
+					<Button variant="secondary" class="w-full" onclick={onFollowAll}
+						>Follow entire blog</Button
+					>
 					<div class="flex flex-wrap gap-2">
-						<Button variant="outline" size="sm" onclick={() => onFollowTag('planet')}>#planet</Button>
+						<Button variant="outline" size="sm" onclick={() => onFollowTag('planet')}
+							>#planet</Button
+						>
 						<Button variant="outline" size="sm" onclick={() => onFollowTag('trust')}>#trust</Button>
 					</div>
 					{#if !blogView.asWebVisitor && myFollows.length > 0}
 						<Separator class="my-2" />
-						<p class="text-muted-foreground text-xs font-medium uppercase">Your follows</p>
+						<p class="text-xs font-medium text-muted-foreground uppercase">Your follows</p>
 						<ul class="space-y-1 text-sm">
 							{#each myFollows as f}
 								<li class="flex items-center justify-between gap-2">
 									<span>
 										{f.scope === 'all' ? 'Whole blog' : `#${f.hashtag}`}
 									</span>
-									<Button variant="ghost" size="sm" class="h-7 text-xs" onclick={() => unfollow(f.id)}>
+									<Button
+										variant="ghost"
+										size="sm"
+										class="h-7 text-xs"
+										onclick={() => unfollow(f.id)}
+									>
 										Unfollow
 									</Button>
 								</li>
@@ -205,7 +235,7 @@
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<code class="bg-muted block rounded-md p-2 text-xs break-all">{rssUrl()}</code>
+					<code class="block rounded-md bg-muted p-2 text-xs break-all">{rssUrl()}</code>
 				</CardContent>
 			</Card>
 
@@ -213,7 +243,9 @@
 				<Card>
 					<CardHeader>
 						<CardTitle class="text-base">Contact the author</CardTitle>
-						<CardDescription>US-42 — US-44. Open to anyone; honeypot field for spam (US-46).</CardDescription>
+						<CardDescription
+							>US-42 — US-44. Open to anyone; honeypot field for spam (US-46).</CardDescription
+						>
 					</CardHeader>
 					<CardContent>
 						<form class="space-y-3" onsubmit={onContact}>
@@ -243,14 +275,17 @@
 					</CardContent>
 				</Card>
 			{:else}
-				<p class="text-muted-foreground text-sm">Contact form disabled by author (US-47).</p>
+				<p class="text-sm text-muted-foreground">Contact form disabled by author (US-47).</p>
 			{/if}
 		</aside>
 	</section>
 
 	{#if blogView.asWebVisitor}
-		<p class="text-muted-foreground border-border rounded-lg border border-dashed p-4 text-center text-sm">
-			You are viewing as a <strong>web visitor</strong>. Members-only posts are hidden (US-35, US-36).
+		<p
+			class="rounded-lg border border-dashed border-border p-4 text-center text-sm text-muted-foreground"
+		>
+			You are viewing as a <strong>web visitor</strong>. Members-only posts are hidden (US-35,
+			US-36).
 		</p>
 	{/if}
 </div>

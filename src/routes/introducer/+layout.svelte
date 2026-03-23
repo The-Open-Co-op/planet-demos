@@ -26,7 +26,7 @@
 	let { children } = $props();
 </script>
 
-<div class="border-border/60 -mx-4 -mt-8 mb-8 border-b px-4 pb-4">
+<div class="-mx-4 -mt-8 mb-8 border-b border-border/60 px-4 pb-4">
 	<div class="flex flex-wrap items-center justify-between gap-3">
 		<nav class="flex flex-wrap items-center gap-1" aria-label="Introducer">
 			{#each nav as item}
@@ -61,7 +61,7 @@
 						onclick={() => setPersona(u.id)}
 					>
 						{u.displayName}
-						<span class="text-muted-foreground ml-1 text-xs">@{u.username}</span>
+						<span class="ml-1 text-xs text-muted-foreground">@{u.username}</span>
 					</DropdownMenu.Item>
 				{/each}
 			</DropdownMenu.Content>

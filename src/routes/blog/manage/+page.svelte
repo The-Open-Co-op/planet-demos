@@ -3,7 +3,13 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button, buttonVariants } from '$lib/components/ui/button';
-	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '$lib/components/ui/card';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { Separator } from '$lib/components/ui/separator';
@@ -74,7 +80,7 @@
 			</CardDescription>
 		</CardHeader>
 		<CardContent>
-			<p class="text-muted-foreground text-sm">
+			<p class="text-sm text-muted-foreground">
 				Current viewer: {userById(session.currentUserId)?.displayName ?? 'Unknown'}
 			</p>
 		</CardContent>
@@ -127,7 +133,7 @@
 				<label class="flex cursor-pointer items-center gap-2 text-sm">
 					<input
 						type="checkbox"
-						class="border-input size-4 rounded"
+						class="size-4 rounded border-input"
 						checked={settings.contactFormEnabled}
 						onchange={(e) => patchSettings({ contactFormEnabled: e.currentTarget.checked })}
 					/>
@@ -136,14 +142,16 @@
 				<label class="flex cursor-pointer items-center gap-2 text-sm">
 					<input
 						type="checkbox"
-						class="border-input size-4 rounded"
+						class="size-4 rounded border-input"
 						checked={settings.commentsGloballyEnabled}
 						onchange={(e) => patchSettings({ commentsGloballyEnabled: e.currentTarget.checked })}
 					/>
 					Comments on by default (US-53)
 				</label>
 			</div>
-			<p class="text-muted-foreground font-mono text-xs">URL: planetnetwork.app/blog/{settings.slug}</p>
+			<p class="font-mono text-xs text-muted-foreground">
+				URL: planetnetwork.app/blog/{settings.slug}
+			</p>
 		</section>
 
 		<Separator />
@@ -152,7 +160,9 @@
 			<div class="flex flex-wrap items-center justify-between gap-2">
 				<h2 class="text-lg font-semibold">Editor (US-11 — US-21)</h2>
 				<div class="flex flex-wrap gap-2">
-					<Button type="button" variant="outline" size="sm" onclick={() => resetEditor()}>New post</Button>
+					<Button type="button" variant="outline" size="sm" onclick={() => resetEditor()}
+						>New post</Button
+					>
 					<Dialog.Root bind:open={previewOpen}>
 						<Dialog.Trigger
 							type="button"
@@ -177,7 +187,7 @@
 			</div>
 
 			<div class="grid gap-4 lg:grid-cols-3">
-				<div class="lg:col-span-2 space-y-3">
+				<div class="space-y-3 lg:col-span-2">
 					<div class="flex flex-wrap gap-2">
 						<Button
 							type="button"
@@ -220,7 +230,7 @@
 							Quote
 						</Button>
 					</div>
-					<p class="text-muted-foreground text-xs">
+					<p class="text-xs text-muted-foreground">
 						WYSIWYG saves as markdown in the background (US-11). Use shortcuts to format.
 					</p>
 					<div class="space-y-2">
@@ -249,7 +259,7 @@
 						<Label for="evis">Visibility (US-19)</Label>
 						<select
 							id="evis"
-							class="border-input bg-background h-9 w-full rounded-md border px-3 text-sm"
+							class="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
 							bind:value={editor.visibility}
 						>
 							<option value="public">Public</option>
@@ -260,7 +270,7 @@
 					<label class="flex cursor-pointer items-center gap-2 text-sm">
 						<input
 							type="checkbox"
-							class="border-input size-4 rounded"
+							class="size-4 rounded border-input"
 							bind:checked={editor.commentsEnabled}
 						/>
 						Comments on this post (US-53)
@@ -274,12 +284,18 @@
 						</CardHeader>
 						<CardContent class="space-y-2">
 							<div
-								class="bg-card flex aspect-video flex-col justify-between rounded-lg border p-3 text-left shadow-sm"
+								class="flex aspect-video flex-col justify-between rounded-lg border bg-card p-3 text-left shadow-sm"
 							>
-								<span class="text-muted-foreground text-[10px] uppercase">Open Graph</span>
+								<span class="text-[10px] text-muted-foreground uppercase">Open Graph</span>
 								<p class="line-clamp-2 font-semibold">{editor.title || 'Post title'}</p>
 								<div class="flex items-center gap-2">
-									<img src={settings.logoUrl} alt="" class="size-8 rounded-full" width="32" height="32" />
+									<img
+										src={settings.logoUrl}
+										alt=""
+										class="size-8 rounded-full"
+										width="32"
+										height="32"
+									/>
 									<span class="text-xs">{settings.authorDisplayName}</span>
 								</div>
 							</div>
@@ -288,7 +304,7 @@
 					<div class="flex flex-col gap-2">
 						<Button variant="secondary" onclick={onSaveDraft}>Save draft</Button>
 						<Button onclick={onSignPublish}>Sign &amp; publish</Button>
-						<p class="text-muted-foreground text-xs">
+						<p class="text-xs text-muted-foreground">
 							US-24 — explicit confirmation; US-25 — PNM holds keys (mocked).
 						</p>
 					</div>
@@ -302,10 +318,12 @@
 			<h2 class="text-lg font-semibold">Your posts</h2>
 			<ul class="space-y-2">
 				{#each managePosts as p}
-					<li class="border-border flex flex-wrap items-center justify-between gap-2 rounded-lg border p-3">
+					<li
+						class="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border p-3"
+					>
 						<div>
 							<p class="font-medium">{p.title}</p>
-							<p class="text-muted-foreground text-xs">
+							<p class="text-xs text-muted-foreground">
 								{visibilityLabel(p.visibility)}
 								{#if p.signed}
 									· <Badge variant="secondary" class="text-[10px]">Verified</Badge>
@@ -314,7 +332,9 @@
 						</div>
 						<div class="flex gap-2">
 							<Button size="sm" variant="outline" onclick={() => loadEditor(p)}>Edit</Button>
-							<Button size="sm" variant="destructive" onclick={() => deletePost(p.id)}>Delete</Button>
+							<Button size="sm" variant="destructive" onclick={() => deletePost(p.id)}
+								>Delete</Button
+							>
 						</div>
 					</li>
 				{/each}
@@ -326,9 +346,9 @@
 				<h2 class="text-lg font-semibold">Contact inbox (US-45)</h2>
 				<ul class="space-y-2">
 					{#each contactInbox as c}
-						<li class="border-border rounded-lg border p-3 text-sm">
+						<li class="rounded-lg border border-border p-3 text-sm">
 							<p class="font-medium">{c.name} &lt;{c.email}&gt;</p>
-							<p class="text-muted-foreground text-xs">{c.createdAt}</p>
+							<p class="text-xs text-muted-foreground">{c.createdAt}</p>
 							<p class="mt-2 whitespace-pre-wrap">{c.message}</p>
 						</li>
 					{/each}

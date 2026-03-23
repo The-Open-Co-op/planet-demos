@@ -24,7 +24,7 @@
 	let { children } = $props();
 </script>
 
-<div class="border-border/60 -mx-4 -mt-8 mb-8 border-b px-4 pb-4">
+<div class="-mx-4 -mt-8 mb-8 border-b border-border/60 px-4 pb-4">
 	<div class="flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between">
 		<nav class="flex flex-wrap items-center gap-1" aria-label="Blog demo">
 			{#each sub as item}
@@ -65,18 +65,18 @@
 							onclick={() => setPersona(u.id)}
 						>
 							{u.displayName}
-							<span class="text-muted-foreground ml-1 text-xs">@{u.username}</span>
+							<span class="ml-1 text-xs text-muted-foreground">@{u.username}</span>
 						</DropdownMenu.Item>
 					{/each}
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 		</div>
 		<div class="flex w-full flex-col gap-2 lg:w-auto lg:items-end">
-			<Label class="text-muted-foreground text-xs">Demo mode</Label>
+			<Label class="text-xs text-muted-foreground">Demo mode</Label>
 			<label class="flex cursor-pointer items-center gap-2 text-sm">
 				<input
 					type="checkbox"
-					class="border-input size-4 rounded"
+					class="size-4 rounded border-input"
 					checked={blogView.asWebVisitor}
 					onchange={(e) => {
 						blogView.asWebVisitor = e.currentTarget.checked;

@@ -22,15 +22,15 @@
 	let { children } = $props();
 </script>
 
-<div class="bg-background text-foreground min-h-screen">
+<div class="min-h-screen bg-background text-foreground">
 	<header
-		class="border-border/80 bg-card/50 supports-backdrop-filter:bg-card/40 sticky top-0 z-40 border-b backdrop-blur-md"
+		class="sticky top-0 z-40 border-b border-border/80 bg-card/50 backdrop-blur-md supports-backdrop-filter:bg-card/40"
 	>
 		<div class="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
-			<a href="/" class="text-primary flex items-center gap-2 font-semibold tracking-tight">
+			<a href="/" class="flex items-center gap-2 font-semibold tracking-tight text-primary">
 				<Globe class="size-6" aria-hidden="true" />
 				<span>PLANET</span>
-				<span class="text-muted-foreground hidden font-normal sm:inline">Demos</span>
+				<span class="hidden font-normal text-muted-foreground sm:inline">Demos</span>
 			</a>
 			<nav class="flex flex-wrap items-center gap-1" aria-label="Main">
 				{#each topNav as item}

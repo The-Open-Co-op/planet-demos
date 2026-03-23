@@ -35,7 +35,9 @@ export const draft = $state<IntroductionDraft>({
 	message: ''
 });
 
-function pushNotification(n: Omit<AppNotification, 'id' | 'createdAt'> & { createdAt?: string }): void {
+function pushNotification(
+	n: Omit<AppNotification, 'id' | 'createdAt'> & { createdAt?: string }
+): void {
 	notifications.unshift({
 		...n,
 		id: nid(),
@@ -122,9 +124,7 @@ export function sendIntroduction(): Introduction | null {
 	introductions.unshift(intro);
 
 	const introCopy = intro;
-	const names = intro.introducedUserIds
-		.map((id) => userById(id)?.displayName ?? id)
-		.join(', ');
+	const names = intro.introducedUserIds.map((id) => userById(id)?.displayName ?? id).join(', ');
 
 	pushNotification({
 		userId: session.currentUserId,
@@ -158,8 +158,7 @@ export function respondToInvite(introductionId: string, accept: boolean): void {
 	if (accept) {
 		intro.consents[uid] = 'accepted';
 		const inviteIdx = notifications.findIndex(
-			(n) =>
-				n.userId === uid && n.introductionId === introductionId && n.kind === 'intro_invite'
+			(n) => n.userId === uid && n.introductionId === introductionId && n.kind === 'intro_invite'
 		);
 		if (inviteIdx !== -1) {
 			const prev = notifications[inviteIdx];
@@ -263,7 +262,6 @@ export function respondToInvite(introductionId: string, accept: boolean): void {
 			});
 		}
 	}
-
 }
 
 export function chatForIntroduction(introductionId: string): Chat | undefined {

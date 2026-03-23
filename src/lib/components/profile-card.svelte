@@ -15,7 +15,7 @@
 <div
 	id="profile-card-{user.id}"
 	class={cn(
-		'border-border bg-card flex min-w-[220px] flex-1 flex-col gap-3 rounded-xl border p-4 shadow-sm',
+		'flex min-w-[220px] flex-1 flex-col gap-3 rounded-xl border border-border bg-card p-4 shadow-sm',
 		className
 	)}
 >
@@ -26,7 +26,7 @@
 		</Avatar.Root>
 		<div class="min-w-0">
 			<p class="truncate font-medium">{user.displayName}</p>
-			<p class="text-muted-foreground truncate text-sm">@{user.username}</p>
+			<p class="truncate text-sm text-muted-foreground">@{user.username}</p>
 		</div>
 	</div>
 </div>

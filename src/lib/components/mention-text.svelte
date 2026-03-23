@@ -12,9 +12,7 @@
 		class?: string;
 	} = $props();
 
-	const byHandle = $derived(
-		new Map(selectedUsers.map((u) => [u.username.toLowerCase(), u]))
-	);
+	const byHandle = $derived(new Map(selectedUsers.map((u) => [u.username.toLowerCase(), u])));
 
 	type Segment = { type: 'text'; value: string } | { type: 'mention'; user: User };
 
@@ -43,14 +41,14 @@
 	});
 </script>
 
-<p class={cn('text-muted-foreground text-sm leading-relaxed', className)}>
+<p class={cn('text-sm leading-relaxed text-muted-foreground', className)}>
 	{#each segments as seg}
 		{#if seg.type === 'text'}
 			{seg.value}
 		{:else}
 			<a
 				href="#profile-card-{seg.user.id}"
-				class="text-primary font-medium underline-offset-2 hover:underline"
+				class="font-medium text-primary underline-offset-2 hover:underline"
 			>
 				@{seg.user.username}
 			</a>

@@ -46,8 +46,7 @@ export const posts = $state<BlogPost[]>([
 		subtitle: 'A short manifesto',
 		bodyMd:
 			'## Trust at the edge\n\n**Introductions** are more than messages — they are *commitments*. On PLANET, every published post is signed with your DID.\n\n> Credibility compounds when authenticity is the default.',
-		featuredImageUrl:
-			'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=80',
+		featuredImageUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=80',
 		inlineImageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80',
 		inlineImageCaption: 'Your keys, your words.',
 		hashtags: ['planet', 'trust', 'network'],
@@ -62,8 +61,7 @@ export const posts = $state<BlogPost[]>([
 		title: 'Members-only roadmap notes',
 		subtitle: 'For PLANET members',
 		bodyMd: '### Q2 focus\n\n- Feed app integration\n- **Topic follows** per blogger',
-		featuredImageUrl:
-			'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80',
+		featuredImageUrl: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80',
 		hashtags: ['planet', 'roadmap'],
 		visibility: 'members',
 		signed: true,
@@ -235,11 +233,7 @@ export function signAndPublishFromEditor(): BlogPost | null {
 export function deletePost(postId: string): void {
 	const i = posts.findIndex((p) => p.id === postId);
 	if (i !== -1) posts.splice(i, 1);
-	comments.splice(
-		0,
-		comments.length,
-		...comments.filter((c) => c.postId !== postId)
-	);
+	comments.splice(0, comments.length, ...comments.filter((c) => c.postId !== postId));
 }
 
 export function commentsForPost(postId: string): BlogComment[] {

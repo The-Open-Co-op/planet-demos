@@ -60,7 +60,5 @@ export function renderSimpleMarkdown(md: string): string {
 }
 
 function inline(s: string): string {
-	return s
-		.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-		.replace(/\*(.+?)\*/g, '<em>$1</em>');
+	return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 }

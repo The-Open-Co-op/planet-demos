@@ -15,14 +15,7 @@
 		chatForIntroduction
 	} from '$lib/demo-state.svelte';
 	import type { AppNotification, Introduction } from '$lib/types';
-	import {
-		Bell,
-		GitBranch,
-		Handshake,
-		Link2,
-		MessageCircle,
-		Sparkles
-	} from '@lucide/svelte';
+	import { Bell, GitBranch, Handshake, Link2, MessageCircle, Sparkles } from '@lucide/svelte';
 
 	const mine = $derived.by((): AppNotification[] => {
 		const uid = session.currentUserId;
@@ -106,7 +99,7 @@
 <div class="space-y-6">
 	<header>
 		<h1 class="text-2xl font-semibold tracking-tight">PNM alerts</h1>
-		<p class="text-muted-foreground text-sm">
+		<p class="text-sm text-muted-foreground">
 			Introduction alerts use a distinct treatment from other notifications (US-05).
 		</p>
 	</header>
@@ -120,9 +113,9 @@
 					<Card class={cardClass(n.kind)}>
 						<CardHeader class="flex flex-row items-start gap-3 space-y-0 pb-2">
 							<div
-								class="bg-background/80 flex size-10 shrink-0 items-center justify-center rounded-lg border"
+								class="flex size-10 shrink-0 items-center justify-center rounded-lg border bg-background/80"
 							>
-								<Icon class="text-primary size-5" aria-hidden="true" />
+								<Icon class="size-5 text-primary" aria-hidden="true" />
 							</div>
 							<div class="min-w-0 flex-1 space-y-1">
 								<div class="flex flex-wrap items-center gap-2">
@@ -131,7 +124,7 @@
 										{kindLabel(n.kind)}
 									</Badge>
 								</div>
-								<p class="text-muted-foreground text-sm">{n.body}</p>
+								<p class="text-sm text-muted-foreground">{n.body}</p>
 							</div>
 						</CardHeader>
 						<CardContent class="space-y-4 pt-0">
@@ -148,12 +141,16 @@
 										{/each}
 									</div>
 									<p class="text-sm font-medium">Message</p>
-									<p class="border-border bg-muted/30 rounded-lg border p-3 text-sm whitespace-pre-wrap">
+									<p
+										class="rounded-lg border border-border bg-muted/30 p-3 text-sm whitespace-pre-wrap"
+									>
 										{intro.message}
 									</p>
-									<p class="text-muted-foreground text-xs">
+									<p class="text-xs text-muted-foreground">
 										Introducer:
-										<strong class="text-foreground">{userById(intro.introducerId)?.displayName}</strong>
+										<strong class="text-foreground"
+											>{userById(intro.introducerId)?.displayName}</strong
+										>
 									</p>
 								</div>
 							{/if}
@@ -167,10 +164,7 @@
 								</div>
 							{/if}
 
-							{#if intro &&
-								(n.kind === 'intro_invite' || n.kind === 'intro_all_accepted' || n.kind === 'intro_sent') &&
-								intro.status === 'active' &&
-								chatForIntroduction(intro.id)}
+							{#if intro && (n.kind === 'intro_invite' || n.kind === 'intro_all_accepted' || n.kind === 'intro_sent') && intro.status === 'active' && chatForIntroduction(intro.id)}
 								<Button href="/introducer/chat/{intro.id}" variant="secondary" class="gap-2">
 									<MessageCircle class="size-4" />
 									Open introduction chat
@@ -184,6 +178,6 @@
 	</ScrollArea>
 
 	{#if mine.length === 0}
-		<p class="text-muted-foreground text-sm">No alerts for this persona yet.</p>
+		<p class="text-sm text-muted-foreground">No alerts for this persona yet.</p>
 	{/if}
 </div>
