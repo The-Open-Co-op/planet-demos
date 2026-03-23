@@ -167,7 +167,10 @@
 								</div>
 							{/if}
 
-							{#if intro && intro.status === 'active' && chatForIntroduction(intro.id)}
+							{#if intro &&
+								(n.kind === 'intro_invite' || n.kind === 'intro_all_accepted' || n.kind === 'intro_sent') &&
+								intro.status === 'active' &&
+								chatForIntroduction(intro.id)}
 								<Button href="/introducer/chat/{intro.id}" variant="secondary" class="gap-2">
 									<MessageCircle class="size-4" />
 									Open introduction chat

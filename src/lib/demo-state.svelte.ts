@@ -177,17 +177,54 @@ export function respondToInvite(introductionId: string, accept: boolean): void {
 		if (allIntroducedAccepted(intro)) {
 			intro.status = 'active';
 			createChatFromIntro(intro);
-			for (let i = 0; i < notifications.length; i++) {
-				const n = notifications[i];
-				if (n.introductionId === introductionId && n.kind === 'intro_invite') {
-					notifications[i] = { ...n, pendingConsent: false };
-				}
-			}
 			const title = 'Everyone accepted';
 			const body = 'The group introduction chat is ready.';
-			for (const pid of [intro.introducerId, ...intro.introducedUserIds]) {
+			for (const introducedId of intro.introducedUserIds) {
+				const inviteIdx = notifications.findIndex(
+					(n) =>
+						n.userId === introducedId &&
+						n.introductionId === introductionId &&
+						n.kind === 'intro_invite'
+				);
+				if (inviteIdx !== -1) {
+					const prev = notifications[inviteIdx];
+					notifications[inviteIdx] = {
+						...prev,
+						kind: 'intro_all_accepted',
+						title,
+						body,
+						pendingConsent: false
+					};
+					continue;
+				}
+
+				// Fallback: if invite is missing for any reason, still deliver ready-state alert.
 				pushNotification({
-					userId: pid,
+					userId: introducedId,
+					kind: 'intro_all_accepted',
+					title,
+					body,
+					introductionId
+				});
+			}
+			const introducerIntroIdx = notifications.findIndex(
+				(n) =>
+					n.userId === intro.introducerId &&
+					n.introductionId === introductionId &&
+					n.kind === 'intro_sent'
+			);
+			if (introducerIntroIdx !== -1) {
+				const prev = notifications[introducerIntroIdx];
+				notifications[introducerIntroIdx] = {
+					...prev,
+					kind: 'intro_all_accepted',
+					title,
+					body
+				};
+			} else {
+				// Fallback: if sent-state card is missing, still deliver ready-state alert.
+				pushNotification({
+					userId: intro.introducerId,
 					kind: 'intro_all_accepted',
 					title,
 					body,
